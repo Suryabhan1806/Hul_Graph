@@ -1,0 +1,155 @@
+.dashboard-grid {
+  width: 100%;
+  display: flex;             
+  gap: 24px;
+  padding: 0 30px;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.dashboard-wrapper {
+  flex: 1;                 
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border-radius: 18px;
+  background: #fff;
+  min-height: 450px;    
+}
+
+
+/* .graph-container {
+  flex: 1;
+  height: 350px;   
+  padding: 0 20px 20px 20px;
+  border-radius: 18px;
+} */
+ .graph-container {
+  flex: 1;
+  height: 350px;
+  padding: 0 20px 20px 20px;
+  border-radius: 18px;
+
+  min-width: 0;   
+  overflow: hidden;
+}
+
+
+.table-container {
+  flex: 1;
+  padding: 0 20px 20px 20px;
+  overflow: hidden;
+}
+
+
+.dashboard-header {
+  background: #ffffff;
+  padding: 16px 20px;
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}
+
+.dashboard-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.header-right {
+  display: flex;
+  gap: 12px;
+}
+
+/* Toggle styling */
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  gap: 4px;
+}
+
+.toggle-wrapper .common-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  width: 38px;
+  height: 34px;
+  border-radius: 8px;
+}
+
+.toggle-wrapper .common-btn.active {
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+
+
+/* Donut wrapper */
+.semi-donut-wrapper {
+  width: 100%;
+}
+
+/* Custom Legend */
+.custom-legend {
+  margin-top: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px 28px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    flex-direction: column;
+  }
+}
+
+
+.table-container {
+  height: 350px;   
+  padding: 0 20px 20px 20px;
+}
+
+.common-table-basic-container {
+  height: 100%;
+}
+
+.table-responsive {
+  height: 100%;
+  overflow-y: auto; 
+}
+
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    flex-direction: column;
+  }
+
+  .dashboard-wrapper {
+    width: 100%;
+  }
+}

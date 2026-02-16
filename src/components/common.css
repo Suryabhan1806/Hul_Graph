@@ -1,0 +1,188 @@
+/* graph Icon  */
+.common-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: white;
+  border: 1px solid #d2d2d2;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-only {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+}
+
+.common-btn svg {
+  font-size: 22px;
+  /* color: #6f6f6f; */
+}
+
+.common-btn:hover {
+  background: #e2e2e2;
+  border-color: #bfbfbf;
+}
+
+.common-btn.active {
+  background: #dcdcdc;
+  border-color: #a8a8a8;
+}
+
+.common-btn.active svg {
+  color: #444;
+}
+
+
+/* Table  */
+
+.table-btn {
+  background: white;        
+}
+
+.table-btn:hover {
+  background: #d7dbdf;
+  border-color: #9fa6ad;
+}
+
+.table-btn svg {
+  color: #5f6b75;
+  font-size: 22px;
+}
+
+/* Export  */
+
+.export-btn {
+  background: #e6e6e6;
+  font-weight: 500;
+}
+
+.export-btn {
+  background: white;
+  padding: 10px 20px;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #1f2937;
+}
+
+.export-btn:hover {
+  background: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+
+.export-icon {
+  font-size: 22px;
+  color: #1d6f42; 
+}
+
+.export-text {
+  font-weight: 500;
+}
+/* Common Table  */
+
+
+
+/* Basic Table - Lightweight Version */
+.common-table-basic-container {
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* .table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+} */
+
+.table-responsive {
+  max-height: 400px;  
+  overflow-y: auto;   
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* .common-table-basic {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  border: 1px solid #e5e7eb;
+} */
+
+.common-table-basic {
+  width: 100%;
+  /* border-collapse: separate;   */
+   border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 14px;
+  border: 1px solid #e5e7eb;
+}
+
+
+/* .common-table-basic th {
+  padding: 12px 16px;
+  background-color: #f9fafb;
+  color: #374151;
+  font-weight: 600;
+  border-bottom: 2px solid #e5e7eb;
+  white-space: nowrap;
+} */
+
+.common-table-basic th {
+  padding: 12px 16px;
+  background-color: #2563eb;   
+  color: #ffffff;            
+  font-weight: 600;
+  border-bottom: 2px solid #1d4ed8;
+  white-space: nowrap;
+
+  position: sticky;         
+  top: 0;
+  z-index: 2;
+   border: 1px solid #1d4ed8; 
+}
+
+
+.common-table-basic td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #4b5563;
+   border: 1px solid #e5e7eb;
+}
+
+.common-table-basic tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.common-table-basic tbody tr:hover {
+  background-color: #f3f4f6;
+}
+
+.no-data-basic {
+  text-align: center;
+  padding: 32px !important;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .common-table-basic th,
+  .common-table-basic td {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/* Common bar graph  */
+
+.bar-chart-wrapper {
+  width: 100%;
+  height: 100%;
+}
