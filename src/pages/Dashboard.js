@@ -8,24 +8,28 @@ import HubIcon from "@mui/icons-material/Hub";
 import TableRowsIcon from "@mui/icons-material/TableRows";
 import "../pages/dashboard.css";
 import CommonBarGraph from "../components/CommonBarGraph";
+import { rootCauseData, rejectionData } from "../data/dashboardData";
+
+const zoneChartData = [
+  { week: "Week 21", acceptance: 93, adoption: 87, bar: 8, zone: "GREEN" },
+  { week: "Week 22", acceptance: 90, adoption: 93, bar: 18, zone: "GREEN" },
+  { week: "Week 23", acceptance: 88, adoption: 88, bar: 20, zone: "GREEN" },
+  { week: "Week 24", acceptance: 91, adoption: 91, bar: 20, zone: "MID" },
+  { week: "Week 25", acceptance: 96, adoption: 96, bar: 20, zone: "MID" },
+  { week: "Week 26", acceptance: 90, adoption: 90, bar: 20, zone: "MID" },
+  { week: "Week 27", acceptance: 89, adoption: 89, bar: 19, zone: "MID" },
+  { week: "Week 28", acceptance: 92, adoption: 92, bar: 19, zone: "ALERT" },
+  { week: "Week 29", acceptance: 90, adoption: 90, bar: 19, zone: "ALERT" },
+  { week: "Week 30", acceptance: 90, adoption: 90, bar: 19, zone: "ALERT" },
+  { week: "Week 31", acceptance: 94, adoption: 94, bar: 19, zone: "ALERT" },
+];
+
+
+
 
 const Dashboard = () => {
   const [activeLeft, setActiveLeft] = useState("graph");
   const [activeRight, setActiveRight] = useState("graph");
-
-
-  const rootCauseData = [
-    { name: "Plan Variation", value: 450 },
-    { name: "PR to PO Conversion", value: 600 },
-    { name: "Others", value: 350 },
-    { name: "Supplier & Transit Delay", value: 180 },
-    { name: "Plan Variation 2", value: 140 },
-    { name: "Others 2", value: 225 },
-    { name: "PR to PO Conversion 2", value: 300 },
-    { name: "Supplier Delay", value: 275 },
-    { name: "Transit Delay", value: 200 },
-    { name: "Others 3", value: 150 }
-  ];
 
   const totalLeft = rootCauseData.reduce(
     (sum, item) => sum + item.value,
@@ -41,24 +45,6 @@ const Dashboard = () => {
     { header: "Root Causes Split", accessor: "name" },
     { header: "Value", accessor: "value", align: "center" },
     { header: "Percentage %", accessor: "percentage", align: "center" }
-  ];
-
-  const rejectionData = [
-    { name: "Quality Issue", value: 320 },
-    { name: "Packaging Issue", value: 210 },
-    { name: "Late Delivery", value: 280 },
-    { name: "Wrong Item", value: 150 },
-    { name: "Documentation Error", value: 190 },
-    { name: "Quality Issue", value: 320 },
-    { name: "Packaging Issue", value: 210 },
-    { name: "Late Delivery", value: 280 },
-    { name: "Wrong Item", value: 150 },
-    { name: "Documentation Error", value: 190 },
-       { name: "Packaging Issue", value: 210 },
-    { name: "Late Delivery", value: 280 },
-    { name: "Wrong Item", value: 150 },
-    { name: "Documentation Error", value: 190 },
-
   ];
 
   const totalRight = rejectionData.reduce(
