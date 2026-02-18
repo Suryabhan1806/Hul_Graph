@@ -1,0 +1,137 @@
+/* Common line graph */
+.chart-wrapper {
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.scroll-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.zone-legend {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #444;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.acceptance {
+  background: #b76e3b;
+}
+
+.adoption {
+  background: #1e90a8;
+}
+
+.box {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.green {
+  background: #e9f6ec;
+}
+
+.mid {
+  background: #fcebd7;
+}
+
+.alert {
+  background: #f8d7da;
+}
+
+/* Common Table  Css  */
+.table-wrapper {
+  width: 100%;
+  background: #f4f6f9;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #dcdcdc;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.zone-table {
+  border-collapse: collapse;
+  /* min-width: 1200px;  */
+  width: 100%;
+}
+
+.zone-table th {
+  background: #2f3e8f;
+  color: white;
+  padding: 14px 12px;
+  font-size: 14px;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.zone-table td {
+  padding: 14px 12px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Sticky first column */
+.sticky-col {
+  position: sticky;
+  left: 0;
+  background: #f0f0f0;
+  z-index: 2;
+  text-align: left !important;
+  padding-left: 16px !important;
+  font-weight: 600;
+}
+
+/* Row title column */
+.row-title {
+  background: #e8ebf3;
+  color: #333;
+}
+
+/* GREEN Zone */
+.zone-cell.green {
+  background-color: #e9f6ec;
+}
+
+/* MID Zone */
+.zone-cell.mid {
+  background-color: #fcebd7;
+}
+
+/* ALERT Zone */
+.zone-cell.alert {
+  background-color: #f8d7da;
+}
+
+/* Scrollbar styling */
+.table-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+  background: #b5b5b5;
+  border-radius: 10px;
+}

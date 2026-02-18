@@ -8,67 +8,103 @@ import HubIcon from "@mui/icons-material/Hub";
 import TableRowsIcon from "@mui/icons-material/TableRows";
 import "../pages/dashboard.css";
 import CommonBarGraph from "../components/CommonBarGraph";
-import { rootCauseData, rejectionData } from "../data/dashboardData";
-
-const zoneChartData = [
-  { week: "Week 21", acceptance: 93, adoption: 87, bar: 8, zone: "GREEN" },
-  { week: "Week 22", acceptance: 90, adoption: 93, bar: 18, zone: "GREEN" },
-  { week: "Week 23", acceptance: 88, adoption: 88, bar: 20, zone: "GREEN" },
-  { week: "Week 24", acceptance: 91, adoption: 91, bar: 20, zone: "MID" },
-  { week: "Week 25", acceptance: 96, adoption: 96, bar: 20, zone: "MID" },
-  { week: "Week 26", acceptance: 90, adoption: 90, bar: 20, zone: "MID" },
-  { week: "Week 27", acceptance: 89, adoption: 89, bar: 19, zone: "MID" },
-  { week: "Week 28", acceptance: 92, adoption: 92, bar: 19, zone: "ALERT" },
-  { week: "Week 29", acceptance: 90, adoption: 90, bar: 19, zone: "ALERT" },
-  { week: "Week 30", acceptance: 90, adoption: 90, bar: 19, zone: "ALERT" },
-  { week: "Week 31", acceptance: 94, adoption: 94, bar: 19, zone: "ALERT" },
-];
-
-
-
+import {
+  rootCauseData,
+  rejectionData,
+  zoneChartData,
+} from "../data/dashboardData";
+import CommonZoneLineBarChart from "../components/CommonZoneLineBarChart";
+import CommonZoneTable from "../components/CommonZoneTable";
 
 const Dashboard = () => {
   const [activeLeft, setActiveLeft] = useState("graph");
   const [activeRight, setActiveRight] = useState("graph");
+  const [activeZone, setActiveZone] = useState("graph");
 
-  const totalLeft = rootCauseData.reduce(
-    (sum, item) => sum + item.value,
-    0
-  );
+  // Table column headers
+  const zoneColumns = zoneChartData.map((item) => item.week);
 
-  const leftTableData = rootCauseData.map(item => ({
+  // // Table data (Graph data -> Table format)
+  // const zoneTableData = [
+  //   {
+  //     label: "Acceptance %",
+  //     values: zoneChartData.map((item) => item.acceptance + "%"),
+  //     zones: zoneChartData.map((item) => item.zone),
+  //   },
+  //   {
+  //     label: "Adoption %",
+  //     values: zoneChartData.map((item) => item.adoption + "%"),
+  //     zones: zoneChartData.map((item) => item.zone),
+  //   },
+  //   {
+  //     label: "Bar Value",
+  //     values: zoneChartData.map((item) => item.bar),
+  //     zones: zoneChartData.map((item) => item.zone),
+  //   },
+  // ];
+  const maxBar = Math.max(...zoneChartData.map((item) => item.bar));
+
+  const zoneTableData = [
+    {
+      label: "Acceptance",
+      values: zoneChartData.map((item) => item.acceptance + "%"),
+      zones: zoneChartData.map((item) => item.zone),
+    },
+    {
+      label: "Adoption",
+      values: zoneChartData.map((item) => item.adoption + "%"),
+      zones: zoneChartData.map((item) => item.zone),
+    },
+    {
+      label: "Accepted %",
+      values: zoneChartData.map(
+        (item) => Math.round((item.bar / maxBar) * 100) + "%",
+      ),
+      zones: zoneChartData.map((item) => item.zone),
+    },
+    {
+      label: "Accepted value",
+      values: zoneChartData.map((item) => item.bar),
+      zones: zoneChartData.map((item) => item.zone),
+    },
+  ];
+
+  const zoneExportData = zoneChartData.map((item) => ({
+    Week: item.week,
+    Acceptance: item.acceptance + "%",
+    Adoption: item.adoption + "%",
+    Bar: item.bar,
+    Zone: item.zone,
+  }));
+
+  const totalLeft = rootCauseData.reduce((sum, item) => sum + item.value, 0);
+
+  const leftTableData = rootCauseData.map((item) => ({
     ...item,
-    percentage: ((item.value / totalLeft) * 100).toFixed(1) + "%"
+    percentage: ((item.value / totalLeft) * 100).toFixed(1) + "%",
   }));
 
   const leftColumns = [
     { header: "Root Causes Split", accessor: "name" },
     { header: "Value", accessor: "value", align: "center" },
-    { header: "Percentage %", accessor: "percentage", align: "center" }
+    { header: "Percentage %", accessor: "percentage", align: "center" },
   ];
 
-  const totalRight = rejectionData.reduce(
-    (sum, item) => sum + item.value,
-    0
-  );
+  const totalRight = rejectionData.reduce((sum, item) => sum + item.value, 0);
 
-
-  const rightTableData = rejectionData.map(item => ({
+  const rightTableData = rejectionData.map((item) => ({
     ...item,
-    percentage: ((item.value / totalRight) * 100).toFixed(1) + "%"
+    percentage: ((item.value / totalRight) * 100).toFixed(1) + "%",
   }));
-
 
   const rightColumns = [
     { header: "Top Rejection Reasons", accessor: "name" },
     { header: "Value", accessor: "value", align: "center" },
-    { header: "Percentage %", accessor: "percentage", align: "center" }
+    { header: "Percentage %", accessor: "percentage", align: "center" },
   ];
-
 
   return (
     <div className="dashboard-grid">
-
       {/* ================= LEFT CARD ================= */}
       <div className="dashboard-wrapper">
         <div className="dashboard-header">
@@ -90,10 +126,7 @@ const Dashboard = () => {
               />
             </div>
 
-            <ExportButton
-              data={leftTableData}
-              fileName="root-causes.xls"
-            />
+            <ExportButton data={leftTableData} fileName="root-causes.xls" />
           </div>
         </div>
 
@@ -103,10 +136,7 @@ const Dashboard = () => {
           </div>
         ) : (
           <div className="table-container">
-            <CommonTable
-              data={leftTableData}
-              columns={leftColumns}
-            />
+            <CommonTable data={leftTableData} columns={leftColumns} />
           </div>
         )}
       </div>
@@ -115,9 +145,7 @@ const Dashboard = () => {
       <div className="dashboard-wrapper">
         <div className="dashboard-header">
           <div className="header-left">
-            <h2 className="dashboard-title">
-              Top Rejection Reasons
-            </h2>
+            <h2 className="dashboard-title">Top Rejection Reasons</h2>
           </div>
 
           <div className="header-right">
@@ -134,12 +162,7 @@ const Dashboard = () => {
               />
             </div>
 
-            <ExportButton
-              data={rightTableData}
-              fileName="issue-category.xls"
-            />
-
-
+            <ExportButton data={rightTableData} fileName="issue-category.xls" />
           </div>
         </div>
         {activeRight === "graph" ? (
@@ -148,15 +171,52 @@ const Dashboard = () => {
           </div>
         ) : (
           <div className="table-container">
-            <CommonTable
-              data={rightTableData}
-              columns={rightColumns}
-            />
+            <CommonTable data={rightTableData} columns={rightColumns} />
           </div>
         )}
-
       </div>
 
+      {/* ================= BOTTOM FULL WIDTH ZONE CHART ================= */}
+
+      <div className="dashboard-wrapper full-width-card">
+        <div className="dashboard-header">
+          <div className="header-left">
+            <h2 className="dashboard-title">
+              Weekly Acceptance & Adoption Trend
+            </h2>
+          </div>
+
+          <div className="header-right">
+            <div className="toggle-wrapper">
+              <IconButton
+                Icon={HubIcon}
+                active={activeZone === "graph"}
+                onClick={() => setActiveZone("graph")}
+              />
+              <TableIconButton
+                Icon={TableRowsIcon}
+                active={activeZone === "table"}
+                onClick={() => setActiveZone("table")}
+              />
+            </div>
+
+            <ExportButton
+              data={zoneExportData}
+              fileName="weekly-acceptance-adoption.xls"
+            />
+          </div>
+        </div>
+
+        {activeZone === "graph" ? (
+          <div className="graph-container">
+            <CommonZoneLineBarChart data={zoneChartData} />
+          </div>
+        ) : (
+          <div className="table-container">
+            <CommonZoneTable data={zoneTableData} columns={zoneColumns} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
