@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import "./common.css";
 
-const CustomStackedTooltip = ({ active, payload }) => {
+const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
       <div className="custom-tooltip">
@@ -22,13 +22,9 @@ const CustomStackedTooltip = ({ active, payload }) => {
                 className="tooltip-dot"
                 style={{ backgroundColor: entry.color }}
               />
-              <span className="tooltip-label">
-                {entry.name}
-              </span>
+              <span className="tooltip-label">{entry.name}</span>
             </div>
-            <span className="tooltip-value">
-              {entry.value}
-            </span>
+            <span className="tooltip-value">{entry.value}%</span>
           </div>
         ))}
       </div>
@@ -37,10 +33,10 @@ const CustomStackedTooltip = ({ active, payload }) => {
   return null;
 };
 
-const CommonStackedScrollableChart = ({
+const CommonGroupedScrollableChart = ({
   data = [],
   xKey = "week",
-  stackBars = [],
+  bars = [],
   height = 340,
 }) => {
 
@@ -64,12 +60,13 @@ const CommonStackedScrollableChart = ({
 
 
   const dynamicWidth = useMemo(() => {
-    const calculatedWidth = data.length * 120;
+    const calculatedWidth = data.length * 110;
     return Math.max(calculatedWidth, containerWidth);
   }, [data, containerWidth]);
 
+  
   const [activeKeys, setActiveKeys] = useState(
-    stackBars.map((b) => b.dataKey)
+    bars.map((b) => b.dataKey)
   );
 
   const toggleBar = (key) => {
@@ -82,7 +79,7 @@ const CommonStackedScrollableChart = ({
 
   return (
     <div className="scroll-chart-container" ref={containerRef}>
-
+      
       <div className="chart-scroll-area">
         <div
           className="chart-inner-dynamic"
@@ -95,7 +92,10 @@ const CommonStackedScrollableChart = ({
               barGap={0}
               margin={{ top: 10, right: 20, left: 20, bottom: 0 }}
             >
-              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <CartesianGrid
+                vertical={false}
+                strokeDasharray="3 3"
+              />
 
               <XAxis 
                 dataKey={xKey}
@@ -103,43 +103,37 @@ const CommonStackedScrollableChart = ({
                 tickLine={false}
               />
 
-              <YAxis hide domain={[0, 110]} />
+              <YAxis 
+                hide 
+                domain={[0, 110]} 
+              />
 
-              <Tooltip content={<CustomStackedTooltip />} />
+              <Tooltip content={<CustomTooltip />} />
 
-              {stackBars
+              {bars
                 .filter((bar) => activeKeys.includes(bar.dataKey))
-                .map((bar, index, filteredBars) => {
-
-                  const isTop = 
-                    index === filteredBars.length - 1;
-
-                  return (
-                    <Bar
-                      key={index}
+                .map((bar, index) => (
+                  <Bar
+                    key={index}
+                    dataKey={bar.dataKey}
+                    fill={bar.color}
+                    barSize={42}
+                    radius={[10, 10, 0, 0]}
+                  >
+                    <LabelList
                       dataKey={bar.dataKey}
-                      stackId="a"
-                      fill={bar.color}
-                      barSize={40}
-                      radius={
-                        isTop ? [10, 10, 0, 0] : [0, 0, 0, 0]
-                      }
-                    >
-                      <LabelList
-                        dataKey={bar.dataKey}
-                        position="inside"
-                        formatter={(value) =>
-                          value ? `${value}%` : ""
-                        }
-                        style={{
-                          fontSize: 12,
-                          fill: "#fff",
-                          fontWeight: 500,
-                        }}
-                      />
-                    </Bar>
-                  );
-                })}
+                      position="insideTop"
+    offset={10}  
+    formatter={(value) => (value ? `${value}%` : "")}
+    style={{
+      fontSize: 12,
+      fill: "#fff",
+      fontWeight: 600,
+    }}
+  />
+</Bar>
+
+                ))}
             </ComposedChart>
           </ResponsiveContainer>
         </div>
@@ -147,7 +141,7 @@ const CommonStackedScrollableChart = ({
 
       {/* 🔥 Clickable Legend */}
       <div className="custom-legends">
-        {stackBars.map((item, index) => {
+        {bars.map((item, index) => {
           const isActive = activeKeys.includes(item.dataKey);
 
           return (
@@ -176,4 +170,4 @@ const CommonStackedScrollableChart = ({
   );
 };
 
-export default CommonStackedScrollableChart;
+export default CommonGroupedScrollableChart;
