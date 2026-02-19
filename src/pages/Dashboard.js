@@ -12,70 +12,99 @@ import {
   rootCauseData,
   rejectionData,
   zoneChartData,
+  stackedData,
+   weeklyZoneChartData,
+  monthlyZoneChartData,
 } from "../data/dashboardData";
 import CommonZoneLineBarChart from "../components/CommonZoneLineBarChart";
 import CommonZoneTable from "../components/CommonZoneTable";
+import CommonStackedScrollableChart from "../components/CommonStackedScrollableChart";
+import CommonToggleButton from "../components/CommonToggleButton";
+
 
 const Dashboard = () => {
   const [activeLeft, setActiveLeft] = useState("graph");
   const [activeRight, setActiveRight] = useState("graph");
   const [activeZone, setActiveZone] = useState("graph");
+  const [activeAccepted, setActiveAccepted] = useState("graph");
+  const [trendType, setTrendType] = useState("Weekly");
 
-  // Table column headers
-  const zoneColumns = zoneChartData.map((item) => item.week);
 
-  // // Table data (Graph data -> Table format)
-  // const zoneTableData = [
-  //   {
-  //     label: "Acceptance %",
-  //     values: zoneChartData.map((item) => item.acceptance + "%"),
-  //     zones: zoneChartData.map((item) => item.zone),
-  //   },
-  //   {
-  //     label: "Adoption %",
-  //     values: zoneChartData.map((item) => item.adoption + "%"),
-  //     zones: zoneChartData.map((item) => item.zone),
-  //   },
-  //   {
-  //     label: "Bar Value",
-  //     values: zoneChartData.map((item) => item.bar),
-  //     zones: zoneChartData.map((item) => item.zone),
-  //   },
-  // ];
-  const maxBar = Math.max(...zoneChartData.map((item) => item.bar));
 
-  const zoneTableData = [
-    {
-      label: "Acceptance",
-      values: zoneChartData.map((item) => item.acceptance + "%"),
-      zones: zoneChartData.map((item) => item.zone),
-    },
-    {
-      label: "Adoption",
-      values: zoneChartData.map((item) => item.adoption + "%"),
-      zones: zoneChartData.map((item) => item.zone),
-    },
-    {
-      label: "Accepted %",
-      values: zoneChartData.map(
-        (item) => Math.round((item.bar / maxBar) * 100) + "%",
-      ),
-      zones: zoneChartData.map((item) => item.zone),
-    },
-    {
-      label: "Accepted value",
-      values: zoneChartData.map((item) => item.bar),
-      zones: zoneChartData.map((item) => item.zone),
-    },
-  ];
+const zoneData =
+  trendType === "Weekly"
+    ? weeklyZoneChartData
+    : monthlyZoneChartData;
 
-  const zoneExportData = zoneChartData.map((item) => ({
-    Week: item.week,
-    Acceptance: item.acceptance + "%",
-    Adoption: item.adoption + "%",
-    Bar: item.bar,
-    Zone: item.zone,
-  }));
+// 🔥 Columns
+const zoneColumns = zoneData.map((item) => item.week);
+
+// 🔥 Max Bar
+const maxBar = Math.max(...zoneData.map((item) => item.bar));
+
+// 🔥 Table Data
+const zoneTableData = [
+  {
+    label: "Acceptance",
+    values: zoneData.map((item) => item.acceptance + "%"),
+    zones: zoneData.map((item) => item.zone),
+  },
+  {
+    label: "Adoption",
+    values: zoneData.map((item) => item.adoption + "%"),
+    zones: zoneData.map((item) => item.zone),
+  },
+  {
+    label: "Accepted %",
+    values: zoneData.map(
+      (item) => Math.round((item.bar / maxBar) * 100) + "%"
+    ),
+    zones: zoneData.map((item) => item.zone),
+  },
+  {
+    label: "Accepted value",
+    values: zoneData.map((item) => item.bar),
+    zones: zoneData.map((item) => item.zone),
+  },
+];
+
+// 🔥 Export Data
+const zoneExportData = zoneData.map((item) => ({
+  Period: item.week,
+  Acceptance: item.acceptance + "%",
+  Adoption: item.adoption + "%",
+  "Accepted %": Math.round((item.bar / maxBar) * 100) + "%",
+  "Accepted value": item.bar,
+}));
+
+
+const acceptedPercentageData = stackedData.map((item) => {
+  const total =
+    item.IUT +
+    item.PRPO +
+    item.AltVendor +
+    item.Expedited +
+    item.Other;
+
+  return {
+    week: item.week,
+    IUT: ((item.IUT / total) * 100).toFixed(1) + "%",
+    PRPO: ((item.PRPO / total) * 100).toFixed(1) + "%",
+    AltVendor: ((item.AltVendor / total) * 100).toFixed(1) + "%",
+    Expedited: ((item.Expedited / total) * 100).toFixed(1) + "%",
+    Other: ((item.Other / total) * 100).toFixed(1) + "%",
+  };
+});
+
+const acceptedColumns = [
+  { header: "Week", accessor: "week" },
+  { header: "IUT ", accessor: "IUT", align: "center" },
+  { header: "PRPO ", accessor: "PRPO", align: "center" },
+  { header: "Alt Vendor ", accessor: "AltVendor", align: "center" },
+  { header: "Expedited ", accessor: "Expedited", align: "center" },
+  { header: "Other ", accessor: "Other", align: "center" },
+];
+
 
   const totalLeft = rootCauseData.reduce((sum, item) => sum + item.value, 0);
 
@@ -179,10 +208,24 @@ const Dashboard = () => {
       {/* ================= BOTTOM FULL WIDTH ZONE CHART ================= */}
 
       <div className="dashboard-wrapper full-width-card">
+          <div className="trend-top-header">
+    <div className="trend-left">
+      <h2 className="trend-main-title">Trend Monitoring</h2>
+    </div>
+
+    <div className="trend-right">
+      <CommonToggleButton
+        options={["Weekly", "Monthly"]}
+        value={trendType}
+        onChange={setTrendType}
+      />
+    </div>
+  </div>
+
         <div className="dashboard-header">
           <div className="header-left">
             <h2 className="dashboard-title">
-              Weekly Acceptance & Adoption Trend
+              {trendType} Trend
             </h2>
           </div>
 
@@ -200,16 +243,17 @@ const Dashboard = () => {
               />
             </div>
 
-            <ExportButton
-              data={zoneExportData}
-              fileName="weekly-acceptance-adoption.xls"
-            />
+<ExportButton
+  data={zoneExportData}
+  fileName="weekly-acceptance-adoption.xls"
+/>
           </div>
         </div>
 
         {activeZone === "graph" ? (
           <div className="graph-container">
-            <CommonZoneLineBarChart data={zoneChartData} />
+            <CommonZoneLineBarChart data={zoneData} />
+            {/* data={zoneChartData} */}
           </div>
         ) : (
           <div className="table-container">
@@ -217,6 +261,62 @@ const Dashboard = () => {
           </div>
         )}
       </div>
+
+      {/* ================= 4TH ROW HALF GRAPH ================= */}
+<div className="dashboard-wrapper">
+  <div className="dashboard-header">
+    <div className="header-left">
+      <h2 className="dashboard-title">Accepted Recommendation Trend</h2>
+    </div>
+
+    <div className="header-right">
+      <div className="toggle-wrapper">
+        <IconButton
+          Icon={HubIcon}
+          active={activeAccepted === "graph"}
+          onClick={() => setActiveAccepted("graph")}
+        />
+        <TableIconButton
+          Icon={TableRowsIcon}
+          active={activeAccepted === "table"}
+          onClick={() => setActiveAccepted("table")}
+        />
+      </div>
+
+     <ExportButton
+  data={acceptedPercentageData}
+  fileName="accepted-recommendation-trend.xls"
+/>
+
+    </div>
+  </div>
+
+  {activeAccepted === "graph" ? (
+    <div className="graph-container">
+      <CommonStackedScrollableChart
+        data={stackedData}
+        xKey="week"
+        stackBars={[
+          { dataKey: "IUT", color: "#4f6f8f" },
+          { dataKey: "PRPO", color: "#8c7b8b" },
+          { dataKey: "AltVendor", color: "#5f8f5f" },
+          { dataKey: "Expedited_Expedited_Expedited", color: "#6c6c91" },
+          { dataKey: "Other", color: "#1f4e79" },
+        ]}
+      />
+    </div>
+  ) : (
+    <div className="table-container">
+      <CommonTable
+  data={acceptedPercentageData}
+  columns={acceptedColumns}
+/>
+
+    </div>
+  )}
+</div>
+
+
     </div>
   );
 };
