@@ -20,6 +20,11 @@ const CommonZoneLineBarChart = ({ data }) => {
     if (!activeZone) return data;
     return data.filter((item) => item.zone === activeZone);
   }, [data, activeZone]);
+  const BAR_LIMIT = 22;
+  const BAR_WIDTH = 60; // width per bar (adjust if needed)
+
+  const chartWidth =
+    filteredData.length > BAR_LIMIT ? filteredData.length * BAR_WIDTH : "100%";
 
   const maxBar =
     filteredData.length > 0 ? Math.max(...filteredData.map((d) => d.bar)) : 0;
@@ -28,7 +33,7 @@ const CommonZoneLineBarChart = ({ data }) => {
     <div className="chart-wrapper">
       <div className="scroll-container">
         <div className="chart-inner">
-          <ResponsiveContainer width="100%" height={380}>
+          <ResponsiveContainer width={chartWidth} height={380}>
             <ComposedChart data={filteredData}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
 
