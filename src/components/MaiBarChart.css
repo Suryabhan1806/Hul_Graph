@@ -1,0 +1,41 @@
+.mai-wrapper {
+  width: 100%;
+}
+
+.mai-scroll {
+  overflow-x: auto;
+}
+
+.mai-legend-fixed {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.start-dot {
+  background: #9bc3c8;
+}
+
+.end-dot {
+  background: #0f5c63;
+}
+
+/* Scrollbar */
+.mai-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.mai-scroll::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+  border-radius: 10px;
+}
