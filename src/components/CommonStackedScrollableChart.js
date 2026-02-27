@@ -9,24 +9,24 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
-import "./common.css";
+import styles from './CommonStackedScrollableChart.module.css';
 
 const CustomStackedTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="custom-tooltip">
+      <div className={`${styles.customTooltip}`}>
         {payload.map((entry, index) => (
-          <div key={index} className="tooltip-row">
-            <div className="tooltip-left">
+          <div key={index} className={`${styles.toolTipRow}`}>
+            <div className={styles.tooltipLeft}>
               <span
-                className="tooltip-dot"
+                className={styles.toolTipDot}
                 style={{ backgroundColor: entry.color }}
               />
-              <span className="tooltip-label">
+              <span className={styles.toolTipLabel}>
                 {entry.name}
               </span>
             </div>
-            <span className="tooltip-value">
+            <span className={styles.toolTipValue}>
               {entry.value}
             </span>
           </div>
@@ -81,11 +81,11 @@ const CommonStackedScrollableChart = ({
   };
 
   return (
-    <div className="scroll-chart-container" ref={containerRef}>
+    <div className={styles.scrollChartContainer} ref={containerRef}>
 
-      <div className="chart-scroll-area">
+      <div className={styles.chartScrollArea}>
         <div
-          className="chart-inner-dynamic"
+          className={styles.chartInnerDynamic}
           style={{ width: dynamicWidth }}
         >
           <ResponsiveContainer width="100%" height={height}>
@@ -146,14 +146,14 @@ const CommonStackedScrollableChart = ({
       </div>
 
       {/* 🔥 Clickable Legend */}
-      <div className="custom-legends">
+      <div className={styles.customLegends}>
         {stackBars.map((item, index) => {
           const isActive = activeKeys.includes(item.dataKey);
 
           return (
             <div
               key={index}
-              className="legend-items"
+              className={styles.legendItems}
               onClick={() => toggleBar(item.dataKey)}
               style={{
                 cursor: "pointer",
@@ -161,10 +161,10 @@ const CommonStackedScrollableChart = ({
               }}
             >
               <span
-                className="legend-colors"
+                className={styles.legendColors}
                 style={{ backgroundColor: item.color }}
               />
-              <span className="legend-texts">
+              <span className={styles.legendTexts}>
                 {item.label || item.dataKey}
               </span>
             </div>

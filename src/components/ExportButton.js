@@ -1,6 +1,6 @@
-import './common.css';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import TableChartIcon from '@mui/icons-material/TableChart';
+import { FileXlsIcon } from '@phosphor-icons/react';
+// import './common.css';
+import styles from './ExportButton.module.css';
 
 const ExportButton = ({ data, fileName = 'export.xls' }) => {
 
@@ -40,9 +40,9 @@ const ExportButton = ({ data, fileName = 'export.xls' }) => {
   };
 
   return (
-    <button className="common-btn export-btn" onClick={exportToXls}>
-      <TableChartIcon className="export-icon" />
-      <span className="export-text">Export</span>
+    <button className={styles.exportBtn} onClick={exportToXls}>
+      <FileXlsIcon className={styles.exportIcon} />
+      <span className={styles.exportText}>Export</span>
     </button>
   );
 };

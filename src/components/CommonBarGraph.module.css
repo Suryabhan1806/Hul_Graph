@@ -1,0 +1,14 @@
+.barScrollWrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.barScrollWrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.barScrollWrapper::-webkit-scrollbar-thumb {
+  background: #c5c5c5;
+  border-radius: 10px;
+}

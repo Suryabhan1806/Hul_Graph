@@ -1,70 +1,20 @@
-/* graph Icon  */
-.common-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  background: white;
-  border: 1px solid #d2d2d2;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.icon-only {
-  width: 48px;
-  height: 48px;
-  padding: 0;
-}
-
-.common-btn svg {
-  font-size: 22px;
-}
-
-.common-btn:hover {
-  background: #e2e2e2;
-  border-color: #bfbfbf;
-}
-
-.common-btn.active {
-  background: #dcdcdc;
-  border-color: #a8a8a8;
-}
-
-.common-btn.active svg {
-  color: #444;
-}
-
-
-/* Table Icon button  */
-
-.table-btn {
-  background: white;        
-}
-
-.table-btn:hover {
-  background: #d7dbdf;
-  border-color: #9fa6ad;
-}
-
-.table-btn svg {
-  color: #5f6b75;
-  font-size: 22px;
-}
 
 /* Export  */
 
-.export-btn {
-  background: #e6e6e6;
-  font-weight: 500;
-}
-
-.export-btn {
-  background: white;
-  padding: 10px 20px;
-  gap: 10px;
-  font-weight: 500;
-  font-size: 16px;
-  color: #1f2937;
+/* .export-btn {
+    background: white;
+    padding: 8px 14px;
+    gap: 8px;
+    color: #1f2937;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    border: 1px solid #d2d2d2;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 36px;
 }
 
 .export-btn:hover {
@@ -74,17 +24,20 @@
 
 
 .export-icon {
-  font-size: 22px;
-  color: #1d6f42; 
+  font-size: 16px !important;
+  color: #2B911C; 
 }
 
 .export-text {
-  font-weight: 500;
-}
+  font-size: 14px;
+  font-weight: 400;
+  color: #1A2025;
+  line-height: 20px;
+} */
 
 /* Common Table  */
-
-.common-table-basic-container {
+/*  
+.common-table-basic-container{
   width: 100%;
   background: white;
   border-radius: 12px;
@@ -102,7 +55,6 @@
 
 .common-table-basic {
   width: 100%;
-  /* border-collapse: separate;   */
    border-collapse: collapse;
   border-spacing: 0;
   font-size: 14px;
@@ -147,19 +99,19 @@
   font-style: italic;
 }
 
-/* Responsive */
+
 @media (max-width: 640px) {
   .common-table-basic th,
   .common-table-basic td {
     padding: 10px 12px;
     font-size: 13px;
   }
-}
+} */
 
 
 /* Common bar graph  */
 
-.bar-scroll-wrapper {
+/* .bar-scroll-wrapper {
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
@@ -172,14 +124,13 @@
 .bar-scroll-wrapper::-webkit-scrollbar-thumb {
   background: #c5c5c5;
   border-radius: 10px;
-}
+} */
 
 
 /* Semi Doubt Chart  */
 
 .semi-donut-wrapper {
   width: 100%;
-  /* height: 100%; */
   height: 350px;
   display: flex;
   flex-direction: column;
@@ -225,7 +176,7 @@
 /* ===============================
    Scrollable Stacked Chart CSS
    =============================== */
-
+/* 
 .scroll-chart-container {
   width: 100%;
 }
@@ -324,40 +275,26 @@
   font-weight: 600;
   font-size: 14px;
   flex-shrink: 0;
-}
+} */
 
 
-/* Common weekly and monthly button  */
 
-
-.trend-toggle {
-  display: inline-flex;
-  background: #e9ecef;
+/* 
+.rmpm-toggle-group {
   padding: 4px;
-  border-radius: 12px;
-  border: 1px solid #d1d5db;
-  gap: 4px;
+  border-radius: 8px !important;
+  border: 1px solid #dae0e7;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  background-color: #F8FBFC;
+  box-sizing: border-box;
 }
 
-.trend-btn {
-  border: none;
-  background: transparent;
-  padding: 6px 18px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  color: #6b7280;
-  transition: all 0.2s ease;
-}
-
-.trend-btn:hover {
-  background: rgba(255, 255, 255, 0.6);
-}
-
-.trend-btn.active {
-  background: #ffffff;
-  color: #111827;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-}
-
+.rmpm-toggle-btn {
+  &.Mui-selected { 
+    background-color: white !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    border-radius: 6px !important;
+  }
+} */

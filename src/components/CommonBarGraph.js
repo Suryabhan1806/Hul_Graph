@@ -8,7 +8,7 @@ import {
     Cell,
     LabelList,
 } from "recharts";
-import "./common.css";
+import styles from "./CommonBarGraph.module.css";
 
 const CommonBarGraph = ({
     data,
@@ -26,7 +26,7 @@ const CommonBarGraph = ({
     const chartWidth = Math.max(data.length * 110, 600);
 
     return (
-        <div className="bar-scroll-wrapper">
+        <div className={styles.barScrollWrapper}>
             <div style={{ width: chartWidth, height: "100%" }}>
                 <BarChart
                     width={chartWidth}
