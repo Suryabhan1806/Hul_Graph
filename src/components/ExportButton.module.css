@@ -1,0 +1,33 @@
+.exportBtn {
+    background: white;
+    padding: 8px 14px;
+    gap: 8px;
+    color: #1f2937;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    border: 1px solid #d2d2d2;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 36px;
+}
+
+.exportBtn:hover {
+  background: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+
+.exportIcon {
+  font-size: 16px !important;
+  color: #2B911C; 
+}
+
+.exportText {
+  font-size: 14px;
+  font-weight: 400;
+  color: #1A2025;
+  line-height: 20px;
+}

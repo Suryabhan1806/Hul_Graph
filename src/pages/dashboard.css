@@ -1,37 +1,19 @@
-.dashboard-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-
-.dashboard-wrapper {
-  flex: 0 0 calc(50% - 12px);  
-  max-width: calc(50% - 12px);  
-  display: flex;
-  flex-direction: column;
-  margin-top: 40px;
+.rmpm-card {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border-radius: 18px;
+  border-radius: 8px;
   background: #fff;
 }
 
-.full-width-card {
-  flex: 0 0 100%;
-  max-width: 100%;
-}
-
-
-.graph-container {
+.rmpm-graph-container {
   flex: 1;
   padding: 0 20px 20px 20px;
   border-radius: 18px;
   min-width: 0;
   display: flex;
-   min-height: 350px; 
+  min-height: 350px;
 }
 
-.table-container {
+.rmpm-table-container {
   flex: 1;
   padding: 0 20px 20px 20px;
   display: flex;
@@ -39,90 +21,15 @@
   min-height: 0;
 }
 
-.dashboard-header {
-  background: #ffffff;
+.rmpm-card-header {
   padding: 16px 20px;
-  border-radius: 14px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.dashboard-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.header-right {
+.rmpm-card-header-actions {
   display: flex;
   gap: 12px;
-}
-
-/* Toggle styling */
-.toggle-wrapper {
-  display: flex;
   align-items: center;
-  background: white;
-  padding: 4px;
-  border-radius: 12px;
-  border: 1px solid #e0e0e0;
-  gap: 4px;
-}
-
-.toggle-wrapper .common-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  width: 38px;
-  height: 34px;
-  border-radius: 8px;
-}
-
-.toggle-wrapper .common-btn.active {
-  background: white;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-
-@media (max-width: 900px) {
-  .dashboard-grid {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 900px) {
-  .dashboard-grid {
-    flex-direction: column;
-  }
-
-  .dashboard-wrapper {
-    width: 100%;
-  }
-}
-
-.trend-top-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-.trend-main-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.trend-right {
-  display: flex;
-  align-items: center;
-}
-
-.force-new-row {
-  flex-basis: 100%;
-  height: 0;
 }

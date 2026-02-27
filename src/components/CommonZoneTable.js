@@ -1,13 +1,14 @@
 import "./commonLineTable.css";
+import styles from './CommonZoneTable.module.css';
 
 const CommonZoneTable = ({ data, columns }) => {
   return (
-    <div className="table-wrapper">
-      <div className="table-scroll">
-        <table className="zone-table">
+    <div className={styles.tableWrapper} >
+      <div className={styles.tableScroll} >
+        <table className={styles.zoneTable}>
           <thead>
             <tr>
-              <th className="sticky-col">Weekly Trend</th>
+              <th className={styles.stickyCol}>Weekly Trend</th>
               {columns.map((col, index) => (
                 <th key={index}>{col}</th>
               ))}
@@ -17,12 +18,12 @@ const CommonZoneTable = ({ data, columns }) => {
           <tbody>
             {data.map((row, rowIndex) => (
               <tr key={rowIndex}>
-                <td className="sticky-col row-title">{row.label}</td>
+                <td className={`${styles.stickyCol} ${styles.rowTitle}`}>{row.label}</td>
 
                 {row.values.map((cell, colIndex) => (
                   <td
                     key={colIndex}
-                    className={`zone-cell ${
+                    className={`${styles.zoneCell} ${
                       row.zones?.[colIndex]?.toLowerCase() || ""
                     }`}
                   >

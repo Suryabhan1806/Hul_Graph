@@ -9,22 +9,24 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
-import "./common.css";
+import styles from "./CommonGroupedScrollableChart.module.css";
 
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="custom-tooltip">
+      <div className={styles.customTooltip}>
         {payload.map((entry, index) => (
-          <div key={index} className="tooltip-row">
-            <div className="tooltip-left">
+          <div key={index} className={styles.toolTipRow}>
+            <div className={styles.tooltipLeft}>
               <span
-                className="tooltip-dot"
+                className={styles.toolTipDot}
                 style={{ backgroundColor: entry.color }}
               />
-              <span className="tooltip-label">{entry.name}</span>
+              <span className={styles.toolTipLabel}>{entry.name}</span>
             </div>
-            <span className="tooltip-value">{entry.value}%</span>
+            <span className={styles.toolTipValue}>
+              {entry.value}%
+            </span>
           </div>
         ))}
       </div>
@@ -39,8 +41,6 @@ const CommonGroupedScrollableChart = ({
   bars = [],
   height = 340,
 }) => {
-
-
   const containerRef = useRef(null);
   const [containerWidth, setContainerWidth] = useState(0);
 
@@ -54,17 +54,14 @@ const CommonGroupedScrollableChart = ({
     });
 
     observer.observe(containerRef.current);
-
     return () => observer.disconnect();
   }, []);
-
 
   const dynamicWidth = useMemo(() => {
     const calculatedWidth = data.length * 110;
     return Math.max(calculatedWidth, containerWidth);
   }, [data, containerWidth]);
 
-  
   const [activeKeys, setActiveKeys] = useState(
     bars.map((b) => b.dataKey)
   );
@@ -78,11 +75,10 @@ const CommonGroupedScrollableChart = ({
   };
 
   return (
-    <div className="scroll-chart-container" ref={containerRef}>
-      
-      <div className="chart-scroll-area">
+    <div className={styles.scrollChartContainer} ref={containerRef}>
+      <div className={styles.chartScrollArea}>
         <div
-          className="chart-inner-dynamic"
+          className={styles.chartInnerDynamic}
           style={{ width: dynamicWidth }}
         >
           <ResponsiveContainer width="100%" height={height}>
@@ -92,26 +88,15 @@ const CommonGroupedScrollableChart = ({
               barGap={0}
               margin={{ top: 10, right: 20, left: 20, bottom: 0 }}
             >
-              <CartesianGrid
-                vertical={false}
-                strokeDasharray="3 3"
-              />
-
-              <XAxis 
-                dataKey={xKey}
-                axisLine={false}
-                tickLine={false}
-              />
-
-              <YAxis 
-                hide 
-                domain={[0, 110]} 
-              />
-
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <XAxis dataKey={xKey} axisLine={false} tickLine={false} />
+              <YAxis hide domain={[0, 110]} />
               <Tooltip content={<CustomTooltip />} />
 
               {bars
-                .filter((bar) => activeKeys.includes(bar.dataKey))
+                .filter((bar) =>
+                  activeKeys.includes(bar.dataKey)
+                )
                 .map((bar, index) => (
                   <Bar
                     key={index}
@@ -123,31 +108,31 @@ const CommonGroupedScrollableChart = ({
                     <LabelList
                       dataKey={bar.dataKey}
                       position="insideTop"
-    offset={10}  
-    formatter={(value) => (value ? `${value}%` : "")}
-    style={{
-      fontSize: 12,
-      fill: "#fff",
-      fontWeight: 600,
-    }}
-  />
-</Bar>
-
+                      offset={10}
+                      formatter={(value) =>
+                        value ? `${value}%` : ""
+                      }
+                      style={{
+                        fontSize: 12,
+                        fill: "#fff",
+                        fontWeight: 600,
+                      }}
+                    />
+                  </Bar>
                 ))}
             </ComposedChart>
           </ResponsiveContainer>
         </div>
       </div>
 
-      {/* 🔥 Clickable Legend */}
-      <div className="custom-legends">
+      <div className={styles.customLegends}>
         {bars.map((item, index) => {
           const isActive = activeKeys.includes(item.dataKey);
 
           return (
             <div
               key={index}
-              className="legend-items"
+              className={styles.legendItems}
               onClick={() => toggleBar(item.dataKey)}
               style={{
                 cursor: "pointer",
@@ -155,17 +140,16 @@ const CommonGroupedScrollableChart = ({
               }}
             >
               <span
-                className="legend-colors"
+                className={styles.legendColors}
                 style={{ backgroundColor: item.color }}
               />
-              <span className="legend-texts">
+              <span className={styles.legendTexts}>
                 {item.label || item.dataKey}
               </span>
             </div>
           );
         })}
       </div>
-
     </div>
   );
 };

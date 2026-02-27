@@ -1,5 +1,5 @@
 import React from 'react';
-import './common.css';
+import styles from './CommonTable.module.css';
 
 const CommonTable = ({ 
   data, 
@@ -7,9 +7,9 @@ const CommonTable = ({
   className = '' 
 }) => {
   return (
-    <div className={`common-table-basic-container ${className}`}>
-      <div className="table-responsive">
-        <table className="common-table-basic">
+    <div className={`${styles.commonTableContainer} ${className}`}>
+      <div className={styles.tableResponsive}>
+        <table className={styles.commonTable}>
           <thead>
             <tr>
               {columns.map((column, index) => (
@@ -44,7 +44,7 @@ const CommonTable = ({
               ))
             ) : (
               <tr>
-                <td colSpan={columns.length} className="no-data-basic">
+                <td colSpan={columns.length} className={styles.noData}>
                   No data available
                 </td>
               </tr>

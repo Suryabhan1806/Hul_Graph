@@ -7,7 +7,7 @@ import {
   Sector
 } from "recharts";
 import { useState } from "react";
-import "./common.css";
+import styles from "./CommonSemiDonutChart.module.css";
 
 const COLORS = [
   "#6D5CA7",
@@ -22,7 +22,6 @@ const COLORS = [
   "#065F46"
 ];
 
-const RADIAN = Math.PI / 180;
 let prevY = null;
 
 const renderLabel = ({
@@ -37,7 +36,6 @@ const renderLabel = ({
 
   const baseOffset = 10;
   const smallSliceExtra = percent < 0.07 ? 8 : 0;
-
   const radius = outerRadius + baseOffset + smallSliceExtra;
 
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -46,11 +44,7 @@ const renderLabel = ({
   const minGap = 16;
 
   if (prevY !== null && Math.abs(y - prevY) < minGap) {
-    if (y > prevY) {
-      y = prevY + minGap;
-    } else {
-      y = prevY - minGap;
-    }
+    y = y > prevY ? prevY + minGap : prevY - minGap;
   }
 
   prevY = y;
@@ -97,7 +91,7 @@ const renderActiveShape = (props) => {
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="custom-tooltip">
+      <div className={styles.customTooltip}>
         <strong>{payload[0].name}</strong>
         <div>Value: {payload[0].value}</div>
       </div>
@@ -107,12 +101,16 @@ const CustomTooltip = ({ active, payload }) => {
 };
 
 const CommonSemiDonutChart = ({ data }) => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [hoverIndex, setHoverIndex] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
+
+  // Decide which slice should be active
+  const activeIndex =
+    selectedIndex !== null ? selectedIndex : hoverIndex;
 
   return (
-    <div className="semi-donut-wrapper">
+    <div className={styles.semiDonutWrapper}>
       <ResponsiveContainer width="100%" height="100%">
-
         <PieChart>
           <Tooltip content={<CustomTooltip />} />
 
@@ -130,34 +128,63 @@ const CommonSemiDonutChart = ({ data }) => {
             label={renderLabel}
             activeIndex={activeIndex}
             activeShape={renderActiveShape}
-            onMouseEnter={(_, index) => setActiveIndex(index)}
-            onMouseLeave={() => setActiveIndex(null)}
+            onMouseEnter={(_, index) => setHoverIndex(index)}
+            onMouseLeave={() => setHoverIndex(null)}
             isAnimationActive={false}
           >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-                cursor="pointer"
-              />
-            ))}
+            {data.map((entry, index) => {
+              const isVisible =
+                selectedIndex === null || selectedIndex === index;
+
+              return (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                  cursor="pointer"
+                  opacity={isVisible ? 1 : 0.3}
+                  onClick={() =>
+                    setSelectedIndex(
+                      selectedIndex === index ? null : index
+                    )
+                  }
+                />
+              );
+            })}
           </Pie>
         </PieChart>
       </ResponsiveContainer>
 
-      <div className="custom-legend">
-        {data.map((item, index) => (
-          <div className="legend-item" key={index}>
-            <span
-              className="legend-dot"
+      {/* Clickable Legend */}
+      <div className={styles.customLegend}>
+        {data.map((item, index) => {
+          const isActive =
+            selectedIndex === null || selectedIndex === index;
+
+          return (
+            <div
+              key={index}
+              className={styles.legendItem}
+              onClick={() =>
+                setSelectedIndex(
+                  selectedIndex === index ? null : index
+                )
+              }
               style={{
-                backgroundColor:
-                  COLORS[index % COLORS.length]
+                cursor: "pointer",
+                opacity: isActive ? 1 : 0.4
               }}
-            />
-            {item.name}
-          </div>
-        ))}
+            >
+              <span
+                className={styles.legendDot}
+                style={{
+                  backgroundColor:
+                    COLORS[index % COLORS.length]
+                }}
+              />
+              {item.name}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
