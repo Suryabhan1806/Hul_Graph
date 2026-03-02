@@ -1,5 +1,5 @@
 import { ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
-import "./rmpnToggleButton.css";
+import "./rmpmToggleButton.css";
 
 const RMPMToggleButton = ({ options, value, onChange, whiteBg = false }) => {
   return (

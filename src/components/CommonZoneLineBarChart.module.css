@@ -1,0 +1,62 @@
+.chartWrapper {
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.scrollContainer {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.zoneLegend {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #444;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.acceptance {
+  background: #b76e3b;
+}
+
+.adoption {
+  background: #1e90a8;
+}
+
+.box {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.green {
+  background: #e9f6ec;
+}
+
+.mid {
+  background: #fcebd7;
+}
+
+.alert {
+  background: #f8d7da;
+}
+
+.chartInner {
+  min-width: 100%;
+}
